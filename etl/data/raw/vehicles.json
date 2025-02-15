@@ -1,0 +1,102 @@
+[
+  {
+    "vehicle_id": "V-001",
+    "name": "Vehicle 1",
+    "total_mileage": 355770.72
+  },
+  {
+    "vehicle_id": "V-002",
+    "name": "Vehicle 2",
+    "total_mileage": 110004.3
+  },
+  {
+    "vehicle_id": "V-003",
+    "name": "Vehicle 3",
+    "total_mileage": 210011.73
+  },
+  {
+    "vehicle_id": "V-004",
+    "name": "Vehicle 4",
+    "total_mileage": 189284.3
+  },
+  {
+    "vehicle_id": "V-005",
+    "name": "Vehicle 5",
+    "total_mileage": 394588.49
+  },
+  {
+    "vehicle_id": "V-006",
+    "name": "Vehicle 6",
+    "total_mileage": 370679.79
+  },
+  {
+    "vehicle_id": "V-007",
+    "name": "Vehicle 7",
+    "total_mileage": 456871.83
+  },
+  {
+    "vehicle_id": "V-008",
+    "name": "Vehicle 8",
+    "total_mileage": 134775.53
+  },
+  {
+    "vehicle_id": "V-009",
+    "name": "Vehicle 9",
+    "total_mileage": 268768.73
+  },
+  {
+    "vehicle_id": "V-010",
+    "name": "Vehicle 10",
+    "total_mileage": 111918.89
+  },
+  {
+    "vehicle_id": "V-011",
+    "name": "Vehicle 11",
+    "total_mileage": 187455.19
+  },
+  {
+    "vehicle_id": "V-012",
+    "name": "Vehicle 12",
+    "total_mileage": 302142.12
+  },
+  {
+    "vehicle_id": "V-013",
+    "name": "Vehicle 13",
+    "total_mileage": 110614.39
+  },
+  {
+    "vehicle_id": "V-014",
+    "name": "Vehicle 14",
+    "total_mileage": 179535.06
+  },
+  {
+    "vehicle_id": "V-015",
+    "name": "Vehicle 15",
+    "total_mileage": 359953.78
+  },
+  {
+    "vehicle_id": "V-016",
+    "name": "Vehicle 16",
+    "total_mileage": 317976.59
+  },
+  {
+    "vehicle_id": "V-017",
+    "name": "Vehicle 17",
+    "total_mileage": 188176.25
+  },
+  {
+    "vehicle_id": "V-018",
+    "name": "Vehicle 18",
+    "total_mileage": 335706.27
+  },
+  {
+    "vehicle_id": "V-019",
+    "name": "Vehicle 19",
+    "total_mileage": 423772.18
+  },
+  {
+    "vehicle_id": "V-020",
+    "name": "Vehicle 20",
+    "total_mileage": 102599.5
+  }
+]
