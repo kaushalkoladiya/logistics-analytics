@@ -12,6 +12,11 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      retries: 5
+      timeout: 3s
 
   etl:
     container_name: etl
@@ -19,8 +24,8 @@ services:
       context: ./etl
       dockerfile: Dockerfile
     environment:
-      DB_HOST: ${DB_HOST}
-      DB_PORT: ${DB_PORT}
+      DB_HOST: postgres
+      DB_PORT: "5432"
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
@@ -29,7 +34,8 @@ services:
     volumes:
       - ./etl/data:/app/data
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
 
   api:
     container_name: api
@@ -37,16 +43,18 @@ services:
       context: ./api
       dockerfile: Dockerfile
     environment:
-      DB_HOST: ${DB_HOST}
-      DB_PORT: ${DB_PORT}
+      DB_HOST: postgres
+      DB_PORT: "5432"
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
     ports:
       - "${API_PORT}:8000"
     depends_on:
-      - postgres
-      - etl
+      postgres:
+        condition: service_healthy
+      etl:
+        condition: service_started
 
 volumes:
   postgres_data:

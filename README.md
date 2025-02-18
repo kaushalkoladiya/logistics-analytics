@@ -68,6 +68,13 @@ docker-compose up api
 docker-compose down
 ```
 
+4. **Start frontend:**
+```bash
+cd client
+npm install
+npm dev
+```
+
 ## Data Processing
 
 The ETL service processes three types of JSON files:
