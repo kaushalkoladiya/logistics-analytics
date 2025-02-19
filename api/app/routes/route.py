@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from datetime import datetime
 from typing import List
 
 from app.utils.logger import get_logger
@@ -12,6 +11,13 @@ from app.schemas.routes import (
     RouteOptimizationResponse,
 )
 from app.services.route_service import RouteService
+from app.validators.route import (
+    RouteReliabilityValidator,
+    RouteOptimizationValidator,
+    RouteCostValueValidator,
+    RouteTopPerformingValidator,
+)
+from app.utils.validators import ValidatedParams
 
 
 router = APIRouter(prefix="/api/route", tags=["route"])
@@ -20,23 +26,22 @@ logger = get_logger(__name__)
 
 @router.get("/reliability", response_model=RouteReliabilityResponse)
 async def get_route_reliability(
-    start: str,
-    end: str,
-    page: int = 1,
-    page_size: int = 10,
-    sort_by: str = "reliability_score",
-    sort_order: str = "desc",
-    search: str = None,
+    req: RouteReliabilityValidator = ValidatedParams(RouteReliabilityValidator),
     db: Session = Depends(get_db),
 ):
     try:
-        start_date = datetime.strptime(start, "%Y-%m-%d")
-        end_date = datetime.strptime(end, "%Y-%m-%d")
-
         return RouteService(db).get_route_reliability(
-            start_date, end_date, page, page_size, sort_by, sort_order, search
+            req.start,
+            req.end,
+            req.page,
+            req.page_size,
+            req.sort_by,
+            req.sort_order,
+            req.search,
         )
 
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error fetching route reliability: {e}")
         raise HTTPException(
@@ -46,23 +51,22 @@ async def get_route_reliability(
 
 @router.get("/cost-value", response_model=RouteCostValueResponse)
 async def get_route_cost_value(
-    start: str,
-    end: str,
-    page: int = 1,
-    page_size: int = 10,
-    sort_by: str = "value_score",
-    sort_order: str = "desc",
-    search: str = None,
+    req: RouteCostValueValidator = ValidatedParams(RouteCostValueValidator),
     db: Session = Depends(get_db),
 ):
     try:
-        start_date = datetime.strptime(start, "%Y-%m-%d")
-        end_date = datetime.strptime(end, "%Y-%m-%d")
-
         return RouteService(db).get_route_cost_value(
-            start_date, end_date, page, page_size, sort_by, sort_order, search
+            req.start,
+            req.end,
+            req.page,
+            req.page_size,
+            req.sort_by,
+            req.sort_order,
+            req.search,
         )
 
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error fetching route cost value: {e}")
         raise HTTPException(
@@ -72,23 +76,22 @@ async def get_route_cost_value(
 
 @router.get("/optimization", response_model=RouteOptimizationResponse)
 async def get_route_optimization(
-    start: str,
-    end: str,
-    page: int = 1,
-    page_size: int = 10,
-    sort_by: str = "cost_time_efficiency",
-    sort_order: str = "desc",
-    search: str = None,
+    req: RouteOptimizationValidator = ValidatedParams(RouteOptimizationValidator),
     db: Session = Depends(get_db),
 ):
     try:
-        start_date = datetime.strptime(start, "%Y-%m-%d")
-        end_date = datetime.strptime(end, "%Y-%m-%d")
-
         return RouteService(db).get_route_optimization(
-            start_date, end_date, page, page_size, sort_by, sort_order, search
+            req.start,
+            req.end,
+            req.page,
+            req.page_size,
+            req.sort_by,
+            req.sort_order,
+            req.search,
         )
 
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error fetching route optimization: {e}")
         raise HTTPException(
@@ -98,17 +101,14 @@ async def get_route_optimization(
 
 @router.get("/top-performing", response_model=List[TopRoutePerformance])
 async def get_top_performing_routes(
-    start: str,
-    end: str,
-    limit: int = 10,
+    req: RouteTopPerformingValidator = ValidatedParams(RouteTopPerformingValidator),
     db: Session = Depends(get_db),
 ):
     try:
-        start_date = datetime.strptime(start, "%Y-%m-%d")
-        end_date = datetime.strptime(end, "%Y-%m-%d")
+        return RouteService(db).get_top_performing_routes(req.start, req.end, req.limit)
 
-        return RouteService(db).get_top_performing_routes(start_date, end_date, limit)
-
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error fetching top performing routes: {e}")
         raise HTTPException(

@@ -103,7 +103,7 @@ export function TrendIntervalSelector({ onIntervalChange }: TrendIntervalSelecto
       onIntervalChange({
         start,
         end,
-        interval: `${periodsBack} ${interval.interval}`,
+        interval: interval.interval,
         periodsBack
       });
     }
@@ -118,7 +118,7 @@ export function TrendIntervalSelector({ onIntervalChange }: TrendIntervalSelecto
     onIntervalChange({
       start,
       end,
-      interval: `${periods} ${selectedInterval.interval}`,
+      interval: selectedInterval.interval,
       periodsBack: periods
     });
   };

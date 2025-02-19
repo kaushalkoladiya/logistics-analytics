@@ -67,10 +67,7 @@ class CostAnalysisService:
         prev_start = prev_end - timedelta(days=period_length)
         return prev_start, prev_end
 
-    def get_cost_analysis(self, start: str, end: str):
-        start_date = datetime.strptime(start, "%Y-%m-%d")
-        end_date = datetime.strptime(end, "%Y-%m-%d")
-
+    def get_cost_analysis(self, start_date: datetime, end_date: datetime):
         prev_start, prev_end = self.get_comparison_period_dates(start_date, end_date)
 
         # Get metrics for both periods

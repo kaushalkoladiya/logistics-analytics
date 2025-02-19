@@ -50,7 +50,7 @@ class VehicleService:
 
     def get_vehicle_details(
         self, vehicle_id: str, start_date: datetime, end_date: datetime
-    ) -> VehicleDetailsResponse:
+    ) -> VehicleDetailsResponse | None:
         # Query 1: Summary
         summary_query = text(
             """
@@ -125,6 +125,10 @@ class VehicleService:
         }
 
         summary = self.db.execute(summary_query, params).fetchone()
+
+        if not summary:
+            return None
+
         daily_perf = self.db.execute(daily_query, params).fetchall()
         top_routes = self.db.execute(route_query, params).fetchall()
 
