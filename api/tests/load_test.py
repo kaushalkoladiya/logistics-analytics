@@ -6,7 +6,20 @@ from typing import List, Dict
 import json
 import logging
 
-logger = logging.getLogger(__name__)
+
+def get_logger():
+    logger = logging.getLogger("load_testing")
+    logger.setLevel(logging.DEBUG)
+    formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
+    ch = logging.StreamHandler()
+    ch.setFormatter(formatter)
+    logger.addHandler(ch)
+    return logger
+
+
+logger = get_logger()
 
 
 async def run_concurrent_requests(
@@ -153,7 +166,7 @@ async def main():
         },
         {
             "name": "Vehicle Details (Valid)",
-            "url": f"{base_url}/vehicles/VEHICLE_001/details",
+            "url": f"{base_url}/vehicles/V-004/details",
             "params": {
                 "start": start_date.strftime("%Y-%m-%d"),
                 "end": end_date.strftime("%Y-%m-%d"),
@@ -174,7 +187,7 @@ async def main():
             "params": {
                 "start": "2020-01-01",
                 "end": end_date.strftime("%Y-%m-%d"),
-                "interval_type": "day",
+                "interval_type": "week",
             },
         },
         {
