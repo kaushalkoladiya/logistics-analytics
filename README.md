@@ -72,7 +72,7 @@ docker-compose down
 ```bash
 cd client
 npm install
-npm dev
+npm run dev
 ```
 
 ## Data Processing
